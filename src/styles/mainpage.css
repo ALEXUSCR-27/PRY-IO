@@ -7,7 +7,7 @@ body {
     width: 530px;
     height: 340px;
     position: relative;
-    top:50px;
+    top:10px;
     margin-top: 50px;
     left: 50px;
     margin-left: 50px;
@@ -53,4 +53,27 @@ body {
 .matrix-card {
     background-image: url(/src/assets/images/matrices.png);
     background-size: contain;
+}
+
+.h2-main {
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0;
+
+
+}
+
+.div-cards {
+    display:flex;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.767);
+    height: 60px;
+}
+
+.nav-inicio {
+    margin-left: 100px;
+    margin-top: 20px;
 }
