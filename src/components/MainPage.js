@@ -10,10 +10,28 @@ const floy = () => {
 function MainPage() {
     return (
         <div>
-            <h1>Hola</h1>
-            <Link to = "http://localhost:3000/floyd">
-                    <button className="card">registrar</button>
-            </Link>
+            <div>
+                <Link to = "http://localhost:3000/floyd">
+                        <button className="floyd-card"></button>
+                </Link>
+                <Link to = "http://localhost:3000/floyd">
+                        <button className="bk-card"></button>
+                </Link>
+                <Link to = "http://localhost:3000/floyd">
+                        <button className="rm-card"></button>
+                </Link>
+            </div>
+            <div>
+                <Link to = "http://localhost:3000/floyd">
+                        <button className="trees-card"></button>
+                </Link>
+                <Link to = "http://localhost:3000/floyd">
+                        <button className="series-card"></button>
+                </Link>
+                <Link to = "http://localhost:3000/floyd">
+                        <button className="matrix-card"></button>
+                </Link>
+            </div>
         </div>
     );
     
