@@ -1,5 +1,7 @@
 import React from "react";
-    import NavBar from "./NavBar";
+import NavBar from "./NavBar";
+import Matriz from "./floydFunctions/Matriz";
+
 function Floyd() {
     return (
         <div>
@@ -7,8 +9,9 @@ function Floyd() {
                 <NavBar/>
             </header>
             <main>
-                <h1>ejem1</h1>
+                <h1>Algoritmo de Floyd</h1>
             </main>
+            <Matriz />
         </div>
     );
 }
