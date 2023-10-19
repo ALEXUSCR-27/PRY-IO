@@ -1,6 +1,5 @@
 
 import React, { Component } from 'react';
-import CalculateFloyd from "./Calculatefloyd";
 class Matriz extends Component {
 
   constructor(props) {
@@ -14,28 +13,24 @@ class Matriz extends Component {
   }
 
 
-  localCalculateFloyd = () => {
+  CalculateFloyd = () => {
     
-    const matrix = this.state.distanciasMatriz;
+    const matrix = [...this.state.distanciasMatriz];
     const dimension = this.state.numNodos; 
-    const iteracion = this.state.iteracion;
-    // Algoritmo de Floyd-Warshall
+    
+    let nodoActual = this.state.iteracion-1;//se resta 1 porque el array empieza en 0
+
+    // Algoritmo de Floyd
     for (let i = 0; i < dimension; i++) {
         for (let j = 0; j < dimension; j++) {  
-            //console.log("valor de matrix[",i,"]","[",j,"]: \n");
-            //console.log(matrix[i][j]);
-            
-            console.log("matrix[i][j]= matrix[",i,"][",j,"]","matrix[",i,"][",iteracion,"+ matrix[",iteracion,"][",j,"]");
-            const nodoActual = parseInt(iteracion,10);
-            //matrix[i][j] = Math.min(parseInt(matrix[i][j],10), parseInt(matrix[i][nodoActual],10) + parseInt(matrix[nodoActual][j],10));
-            //console.log("nuevo valor de matrix[",i,"]","[",j,"]: \n");
-            //console.log(matrix[i][j]); 
+            matrix[i][j] = Math.min(matrix[i][j], matrix[i][nodoActual] + matrix[nodoActual][j]);
+
         }             
     }
-    this.state.distanciasMatriz = matrix;
+    this.setState({ distanciasMatriz: matrix });
   }
 
-  showMatriz = (event) => {
+  showMatriz = () => {
     for (let i = 0; i < this.state.numNodos; i++) {
       for (let j = 0; j < this.state.numNodos; j++) {
         console.log("valor de matrix[",i,"]","[",j,"]: \n");
@@ -61,23 +56,20 @@ class Matriz extends Component {
       //se muestra la matriz D(0)
       console.log("Resultado de la iteración #0");
       //console.log("Matriz: \n", this.state.distanciasMatriz);
-      //this.showMatriz(event);
+      this.showMatriz();
     }else{
-      if (this.state.iteracion === this.state.numNodos){
+      if (this.state.iteracion > this.state.numNodos){
         //se llego a la solucion optima
+        window.alert("Ya se ha llegado a la solución óptima");
         console.log("Solución óptima: \n");
-        window.alert("Se ha llegado a la solución óptima");
-        this.showMatriz(event);
+        this.showMatriz();
       }else{
-        //llamar al algoritmo, se le envia this.state.distanciasMatriz
-        //const result = CalculateFloyd(this.state.distanciasMatriz, this.state.numNodos, this.state.iteracion);
-        this.localCalculateFloyd();
+        //llamar al algoritmo de floyd
+        this.CalculateFloyd();
         //se muestran los resultados
         console.log("Resultado de la iteración #",this.state.iteracion,"\n");
-
-        //console.log("Matriz: \n");
-        
-        //this.showMatriz(event);
+       
+        this.showMatriz();
       }      
     }
     //se incrementa a la iteracion siguiente
@@ -90,7 +82,7 @@ class Matriz extends Component {
     const distancias = [];
     const iteracion = parseInt(0, 10);
     const matrizBidireccional = [];
-    //const distanciasbackup = [];    
+
     console.log('Número de nodos:',numNodos); 
 
     //setea los valores por defecto en el arrray de distancias
@@ -101,12 +93,12 @@ class Matriz extends Component {
         if (isOnDiagonal) {
             distancias[i,j] = parseInt(0, 10);
         } else {
-          distancias[i,j] = parseInt(100, 10);
+          distancias[i,j] = Infinity;
         }
       }
     }
     console.log(distancias);
-    //console.log(distanciasbackup);
+
     this.setState({ numNodos, distancias, iteracion,matrizBidireccional});
                  
   };
@@ -116,11 +108,10 @@ class Matriz extends Component {
     const index = i * this.state.numNodos + j;
     const isOnDiagonal = index % (this.state.numNodos + 1) === 0;
     if (isOnDiagonal) {
-      /*
       if (valor != parseInt(0, 10)){
         window.alert("El valor está en la diagonal, se seteará como 0");
         //faltaria algun metodo que revierta el cambio en el input a 0
-      } */
+      }
         this.state.distancias[index] = parseInt(0, 10);
     } else {
       this.state.distancias[index] = parseInt(valor, 10);
@@ -143,8 +134,6 @@ class Matriz extends Component {
     for (let i = 0; i < numNodos; i++) {
         const fila = [];
         for (let j = 0; j < numNodos; j++) {
-            /*this.state.distancias[i * numNodos + j] = -1;
-            this.validarDiagonal(-1,i,j);*/
             fila.push(
                 <input
                     name={`celda-${i}-${j}`}
@@ -171,11 +160,12 @@ class Matriz extends Component {
           {matrizDistancias}
           <button type="submit">Calcular</button>
         </form>
+        
       </div>
+      
     );
   }
 }
-
 
 export default Matriz;
 

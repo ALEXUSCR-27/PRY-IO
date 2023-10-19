@@ -9,7 +9,8 @@ function Floyd() {
                 <NavBar/>
             </header>
             <main>
-                <h1>Algoritmo de Floyd</h1>
+                <h1>Algoritmo de Floyd</h1>                
+                <h4>Si desea poner infinitos, deje la celda en blanco</h4>                
             </main>
             <Matriz />
         </div>
