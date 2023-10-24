@@ -53,19 +53,28 @@ tr {
     width: 50px;
     margin-right: 30px;
     height: 20px;
-    font-size: 15px;
+    font-size: 14px;
     font-family:'Open Sans', sans-serif;
     font-weight: bold;
     color: black;
     
 }
 
-.generateRows-button {
-    width: 130px;
-    height: 25px;
-    margin-right: 10px;
-}
+
 
 .tr-body {
     border: 0.3px solid rgba(128, 128, 128, 0.144);
+}
+
+.load-archive-button, .generateRows-button, .save-program-button {
+    background-color: #436063;
+    border:0;
+    height: 30px;
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    font-family:'Open Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
 }

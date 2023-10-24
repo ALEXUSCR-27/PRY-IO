@@ -11,6 +11,7 @@ function OptimalSearch() {
     const [flag, setFlag] = useState(false);
     const [rows, setRows] = useState([]);
     const [p, setp] = useState([]);
+    const [cost, setCost] = useState([]);
 
     const generateOptimalTree = () => {
         var cantKeys = keys.length;
@@ -72,6 +73,7 @@ function sum(probabilities, i, j)
 
     const ejemplo = () => {
         const cost = generateOptimalTree();
+        setCost(cost);
         console.log("Costo óptimo de búsqueda:", cost);
     }
 
@@ -121,6 +123,30 @@ function sum(probabilities, i, j)
         ejemplo();
 
     }
+
+    const generateArchive = () => {
+        if (keys.length !== p.length) {
+          throw new Error('Las listas keys y p deben tener la misma longitud.');
+        }
+      
+        const datos = {};
+        const fileName = "ArbolesBusquedaOptima.json"
+      
+        for (let i = 0; i < keys.length; i++) {
+            datos[keys[i]] = p[i];
+        }
+
+        
+        const jsonStr = JSON.stringify(datos, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      
       
 
     return (
@@ -136,8 +162,11 @@ function sum(probabilities, i, j)
                             <input type= "number" className="keys-cantInput" placeholder="Ej:10" onChange={(e) => setCantRows(e)}></input>
                             <button className="generateRows-button" onClick={generateRows}>CONF. LLAVES</button>
                             <button onClick={generateTree}>GENERAR ARBOL</button>
-                            <button>CARGAR ARCHIVO</button>
-                            <button>GUARDAR PROGRAMA</button>
+                            <div style={{marginTop:"10px"}}>
+                                <button className="load-archive-button">CARGAR ARCHIVO</button>
+                                <button className="save-program-button" onClick={generateArchive}>GUARDAR PROGRAMA</button>
+                            </div>
+                            
                         </div>
                         <div className="div-table">
                             <table>
@@ -153,7 +182,7 @@ function sum(probabilities, i, j)
                                         rows.map((val, key) => {
                                             return (
                                                 <tr key={key} className="tr-body">
-                                                    <td>Llave: {val}</td>
+                                                    <td>Llave: {key}</td>
                                                     <td>
                                                         <input onChange={(e) => manageKey(val-1, e)}></input>
                                                     </td>
@@ -170,6 +199,17 @@ function sum(probabilities, i, j)
                         </div>
                     </div>
                     <div className="left-side-tree">
+                        <table>
+                            <tbody>
+                                {cost.map((fila, filaIndex) => (
+                                <tr key={filaIndex}>
+                                    {fila.map((valor, colIndex) => (
+                                    <td key={colIndex}>{valor}</td>
+                                    ))}
+                                </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 
