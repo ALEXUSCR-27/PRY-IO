@@ -78,3 +78,12 @@ tr {
     font-weight: 600;
     cursor: pointer;
 }
+
+.load-archive-input {
+    background-color: #436063;
+    color: white;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    
+}

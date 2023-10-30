@@ -5,84 +5,112 @@ import '../styles/optimal-tree.css'
 
 function OptimalSearch() {
 
-    const [keys, setKeys] = useState([]);
-    const [probabilities, setProbabilities] = useState([]);
+    const [keys, setKeys] = useState([1,2,3,4]);
+    const [probabilities, setProbabilities] = useState([0.18,0.32,0.39,0.11]);
+    //const [keys, setKeys] = useState([]);
+    //const [probabilities, setProbabilities] = useState([]);
     const [cantKeys, setCantKeys] = useState(10);
     const [flag, setFlag] = useState(false);
     const [rows, setRows] = useState([]);
     const [p, setp] = useState([]);
     const [cost, setCost] = useState([]);
+    const [rTable, setRTable] = useState([]);
+    const [jsonObject, setJsonObject] = useState({});
 
     const generateOptimalTree = () => {
-        var cantKeys = keys.length;
-        var cost = new Array(cantKeys);
-    for (var i = 0; i < cantKeys; i++)
-        cost[i] = new Array(cantKeys);
+        let contKeys = keys.length;
+        let costArray = new Array(contKeys);
+        let R = new Array(contKeys);
+        let visited = new Array(contKeys);
+        for (let i = 0; i < contKeys; i++) { //Genero la tabla de costos
+            costArray[i] = new Array(contKeys);
+            visited[i] = new Array(contKeys);
+            R[i] = new Array(contKeys);
+        }
+
+        for (let i = 0; i < contKeys; i++) { 
+            for (let j = 0; j < contKeys; j++) {
+                R[i][j] = 0;
+            }
+            
+        }
+
   
-    /* cost[i][j] = Optimal cost of binary search tree
-    that can be formed from keys[i] to keys[j].
-    cost[0][cantKeys-1] will store the resultant cost */
-  
-    // For a single key, cost is equal to frequency of the key
-    for (var i = 0; i < cantKeys; i++)
-        cost[i][i] = probabilities[i];
-  
-    // Now we need to consider chains of length 2, 3, ... .
-    // L is chain length.
-    for (var L = 2; L <= cantKeys; L++)
-    {
-        // i is row number in cost[][]
-        for (var i = 0; i <= cantKeys-L+1; i++)
-        {
-            // Get column number j from row number i and
-            // chain length L
-            var j = i+L-1;
-            var off_set_sum = sum(probabilities, i, j);
-            if ( i >= cantKeys || j >= cantKeys)
-                break
-            cost[i][j] = Number. MAX_SAFE_INTEGER;
-  
-            // Try making all keys in interval keys[i..j] as root
-            for (var r = i; r <= j; r++)
-            {
-            // c = cost when keys[r] becomes root of this subtree
-            var c = 0;
-            if (r > i)
-                c += cost[i][r-1]
-            if (r < j)
-                c += cost[r+1][j]
-            c += off_set_sum;
-            if (c < cost[i][j])
-                cost[i][j] = c;
+        /* cost[i][j] = Optimal cost of binary search tree
+        that can be formed from keys[i] to keys[j].
+        cost[0][cantKeys-1] will store the resultant cost */
+        // For a single key, cost is equal to frequency of the key
+        for (let i = 0; i < contKeys; i++) {
+            costArray[i][i] = probabilities[i];
+            visited[i][i] = -1;
+        }
+    
+        // Now we need to consider chains of length 2, 3, ... .
+        // L is chain length.
+        for (let L = 2; L <= contKeys; L++) {
+            // i is row number in cost[][]
+            for (let i = 0; i <= contKeys-L+1; i++) {
+                // Get column number j from row number i and
+                // chain length L
+                let j = i+L-1;
+                let off_set_sum = sum(probabilities, i, j);
+                if ( i >= contKeys || j >= contKeys)
+                    break
+
+                costArray[i][j] = Number. MAX_SAFE_INTEGER;
+                visited[i][j] = -1;
+    
+                // Try making all keys in interval keys[i..j] as root
+                for (let r = i; r <= j; r++) {
+                    console.log("i:"+i);
+                    console.log("L:"+L);
+                    console.log("j:"+j);
+                    console.log("r:"+r);
+                    console.log("offset:"+off_set_sum);
+                    // c = cost when keys[r] becomes root of this subtree
+                    let c = 0;
+                    if (r > i)
+                        c += costArray[i][r-1]
+                    if (r < j)
+                        c += costArray[r+1][j]
+                    c += off_set_sum;
+                    console.log("c:"+c);
+                    console.log("cost:"+costArray[i][j]);   
+                    if (c < costArray[i][j]) {
+                        costArray[i][j] = c;
+                        visited[i][j] = r+1;
+                    }
+                }
             }
         }
-    }
-    return cost;
+        console.log(visited);
+        for (let i = 0; i < contKeys; i++) { 
+            for (let j = 0; j < contKeys; j++) {
+                if (costArray[i][j] == undefined) {
+                    costArray[i][j] = 0;
+                }
+            }
+            
+        }
+        setRTable(visited);
+        return costArray;
 }
   
 // A utility function to get sum of array elements
 // probabilities[i] to probabilities[j]
-function sum(probabilities, i, j)
-{
+function sum(probabilities, i, j) {
     let s = 0;
     for (let k = i; k <= j; k++)
         s += probabilities[k];
     return s;
 }
-      // Ejemplo de uso
-
-    const ejemplo = () => {
-        const cost = generateOptimalTree();
-        setCost(cost);
-        console.log("Costo óptimo de búsqueda:", cost);
-    }
 
     const generateRows = () => {
         const tempRows = [];
         for (let i=1;i<=cantKeys;i++) {
             tempRows.push(i);
         }
-        console.log(tempRows);
+        //console.log(tempRows);
 
         setRows(tempRows);
         setp(tempRows);
@@ -106,7 +134,7 @@ function sum(probabilities, i, j)
     }
 
     const generateTree = () => {
-        
+        /*
         let total = 0;
         for (let i=0;i<cantKeys;i++) {
             total+=p[i];
@@ -117,10 +145,11 @@ function sum(probabilities, i, j)
             temp[j] = p[j]/total;
         }
         setProbabilities(temp);
-        console.log(probabilities);
-
-
-        ejemplo();
+        //console.log(probabilities);
+*/
+        const cost = generateOptimalTree();
+        setCost(cost);
+        console.log("Costo óptimo de búsqueda:", cost);
 
     }
 
@@ -146,6 +175,48 @@ function sum(probabilities, i, j)
         a.click();
         URL.revokeObjectURL(url);
       }
+
+      const handleFileChange = async (e) => {
+        let temp = [];
+        try {
+            const parsedData = await readJsonFile(e.target.files[0]);
+            
+            console.log(Object.values(parsedData));
+            console.log(Object.keys(parsedData));
+            temp = Object.keys(parsedData);
+            setKeys(temp);
+            console.log(keys);
+            
+            
+        }
+        catch(error) {
+
+        }
+        
+        
+      };
+    
+      const readJsonFile = (file) =>
+        new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+
+            fileReader.onload = event => {
+            if (event.target) {
+                resolve(JSON.parse(event.target.result))
+            }
+            }
+
+            fileReader.onerror = error => reject(error)
+            fileReader.readAsText(file)
+    })
+
+
+    const guardar = (temp) => {
+        setKeys(temp);
+        console.log(keys);
+    }
+
+
       
       
 
@@ -163,7 +234,7 @@ function sum(probabilities, i, j)
                             <button className="generateRows-button" onClick={generateRows}>CONF. LLAVES</button>
                             <button onClick={generateTree}>GENERAR ARBOL</button>
                             <div style={{marginTop:"10px"}}>
-                                <button className="load-archive-button">CARGAR ARCHIVO</button>
+                                <input type="file" accept=".json" className="load-archive-input"  onChange={handleFileChange}></input>
                                 <button className="save-program-button" onClick={generateArchive}>GUARDAR PROGRAMA</button>
                             </div>
                             
@@ -202,6 +273,18 @@ function sum(probabilities, i, j)
                         <table>
                             <tbody>
                                 {cost.map((fila, filaIndex) => (
+                                <tr key={filaIndex}>
+                                    {fila.map((valor, colIndex) => (
+                                    <td key={colIndex}>{valor}</td>
+                                    ))}
+                                </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <tbody>
+                                {rTable.map((fila, filaIndex) => (
                                 <tr key={filaIndex}>
                                     {fila.map((valor, colIndex) => (
                                     <td key={colIndex}>{valor}</td>
