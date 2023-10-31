@@ -1,0 +1,44 @@
+.right-bar-matrix {
+    margin-top: 20px;
+    width: 20%;
+    height: 890px;
+    background-color: #F5F6F8;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-side-matrix {
+    width: 80%;
+    background-color: white;
+}
+.calcular-button {
+    margin-top: 10px;
+    background-color: #436063;
+    border:0;
+    height: 30px;
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    font-family:'Open Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.div-table {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.tr-body {
+    border: 0.3px solid rgba(128, 128, 128, 0.144);
+}
+
+.table-header {
+    position:sticky;
+    top: 0;
+    overflow-x: scroll;
+    font-size: 18px;
+    background-color: #F5F6F8;
+}
+

@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "./NavBar";
+
+import '../styles/matrix.css';
 
 
 function MatrixMul() {
+    const [dimensions, setDimensions] = useState(0);
+    const [dimensionsList, setDimensionsList] = useState([]);
+    const [rows, setRows] = useState([]);
+    const [m, setM] = useState([]);
+    const [flag, setFlag] = useState(false);
+    const [cantMul, setCantMul] = useState(0);
 
-    const MatrixChainOrder = (p , n) =>
-    {
-        /* For simplicity of the 
-        program, one extra row and
-        one extra column are allocated in m.  0th row
-        and 0th column of m are not used */
+    const generateRows = () => {
+        const tempRows = [];
+        for (let i=0;i<=dimensions;i++) {
+            tempRows.push(i);
+        }
+
+        setRows(tempRows);
+        
+    }
+
+    const MatrixChainOrder = (p , n) => {
+
         let m = Array(n).fill(0).map(x => Array(n).fill(0));
      
         let i, j, k, L, q;
      
-        /* m[i, j] = Minimum number of scalar
-        multiplications needed to compute the matrix
-        A[i]A[i+1]...A[j] = A[i..j] where
-        dimension of A[i] is p[i-1] x p[i] */
-     
-        // cost is zero when multiplying one matrix.
         for (i = 1; i < n; i++)
             m[i][i] = 0;
      
@@ -42,16 +50,37 @@ function MatrixMul() {
                 }
             }
         }
-     
+        
+        setM(m);
+        setCantMul(m[1][n - 1]);
+        setFlag(true);
+        
         return m[1][n - 1];
     }
 
-    const ejm = () => {
-        let arr = [ 20, 2, 30, 12, 8 ];
-        let size = arr.length;
-        console.log(MatrixChainOrder(arr, size));
+    const calcular = () => {
+        if (dimensionsList.length>0) {
+            let arr = dimensionsList;
+            console.log(dimensionsList);
+            let size = arr.length;
+            console.log(MatrixChainOrder(arr, size));
+        }
+        
     
     }
+
+    const handleDimensions  = (e) => {
+        setDimensions(e.target.value);
+    }
+
+    const manageDim = (val, e) => {
+        console.log(val);
+        const temp = dimensionsList;
+        temp[val] = parseInt(e.target.value);
+        setDimensionsList(temp);
+        
+    }
+
 
     return (
         <div>
@@ -59,8 +88,65 @@ function MatrixMul() {
                 <NavBar/>
             </header>
             <main>
-                <h1>ejem1</h1>
-                <button onClick={ejm}>ejm</button>
+                <div style={{display:"flex"}}>
+                    <div className="right-bar-matrix">
+                        <label>Numero de matrices</label>
+                        <input type="number" onChange={(e) => handleDimensions(e)}></input>
+                        <button className="calcular-button" onClick={generateRows}>CONF. DIMENSIONES</button>
+                        <table>
+                                <thead>
+                                    <tr className="table-header">
+                                        <th>Llaves</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        rows.map((val, key) => {
+                                            return (
+                                                <tr key={key} className="tr-body">
+                                                    <td>Matriz: {key+1}</td>
+                                                    <td>
+                                                        <input onChange={(e) => manageDim(val, e)}></input>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                            <button className="calcular-button" onClick={calcular}>CALCULAR</button>
+                    </div>
+                            
+
+                    <div className="left-side-matrix">
+                        <div>
+                            {flag && (
+                                <div>
+                                    <h1>Tabla M</h1>
+                                </div>
+                                )}        
+                                <table>
+                                    <tbody>
+                                        {m.map((fila, filaIndex) => (
+                                        <tr key={filaIndex}>
+                                            {fila.map((valor, colIndex) => (
+                                            <td key={colIndex}>{valor}</td>
+                                            ))}
+                                        </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {flag && (
+                                <div>
+                                    <h1>Cantidad de multiplicaciones optima: {cantMul}</h1>
+                                </div>
+                            )}
+                        </div>
+                        
+
+                </div>
             </main>
         </div>
     );
