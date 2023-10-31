@@ -1,0 +1,107 @@
+
+/* Estilos para los botones de cargar y guardar */
+
+.buttonmochilasv {
+    background-color: #00154a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+.buttonmochilald{
+  background-color: #00154a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+  /* Estilos para el título principal */
+  .h1mochila {
+    font-size: 30px;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  /* Estilos para el formulario de capacidad de la mochila */
+  .labelmochila {
+    font-weight: bold;
+    margin-left: 20px;
+  }
+  
+  .inputmochila[type="number"] {
+    width: 100px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 5px;
+  }
+  
+  .buttonmochila {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  
+  /* Estilos para los elementos de los objetos */
+  .h4mochila {
+    margin-top: 10px;
+    margin-left: 15px;
+    font-weight: bold;
+  }
+    
+  /* Estilos para el menú desplegable (select) */
+  .selectmochila {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  /* Estilos para la tabla de programación dinámica */
+  .tablemochila {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .thmochila, .tdmochila {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .thmochila {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* Estilos para las celdas con fondo verde o rojo */
+  td.green {
+    background-color: green;
+    color: white;
+  }
+  
+  td.red {
+    background-color: red;
+    color: white;
+  }
+  
+  /* Estilos para la solución final */
+  .h2solucionfinal {
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .psolucionfinal {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  

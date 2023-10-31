@@ -1,5 +1,8 @@
 
 import React, { Component } from 'react';
+import '../../styles/FloydMatriz.css'
+import RutaOptima from './rutaOptima';
+
 class Matriz extends Component {
 
   constructor(props) {
@@ -8,26 +11,37 @@ class Matriz extends Component {
       numNodos: 0,
       distancias: [],
       iteracion: 0,
-      distanciasMatriz: []
+      distanciasMatriz: [],
+      matrizP: [],
+
+      //para las rutas optimas
+      mostrarRutaOptima: false,
     };
+    
   }
 
 
   CalculateFloyd = () => {
     
     const matrix = [...this.state.distanciasMatriz];
+    const matrixp = [...this.state.matrizP];
     const dimension = this.state.numNodos; 
     
     let nodoActual = this.state.iteracion-1;//se resta 1 porque el array empieza en 0
-
+    let valorAnterior = 0;
     // Algoritmo de Floyd
     for (let i = 0; i < dimension; i++) {
-        for (let j = 0; j < dimension; j++) {  
+        for (let j = 0; j < dimension; j++) {
+            valorAnterior = matrix[i][j];  
             matrix[i][j] = Math.min(matrix[i][j], matrix[i][nodoActual] + matrix[nodoActual][j]);
+            if(matrix[i][j] != valorAnterior){
+              matrixp[i][j] = nodoActual+1;
+            }            
 
         }             
     }
     this.setState({ distanciasMatriz: matrix });
+    this.setState({ matrizP: matrixp });
   }
 
   showMatriz = () => {
@@ -47,12 +61,17 @@ class Matriz extends Component {
 
     //Si la iteracion actual es 0, se crea una matriz bidimensional a partir del array unidimensional
     if (this.state.iteracion === 0){
-      const matrix = [];      
+      const matrix = [];    
       for (let i = 0; i < this.state.numNodos; i++) {
         const row = this.state.distancias.slice(i * this.state.numNodos, (i + 1) * this.state.numNodos);
         matrix.push(row);
       }
       this.state.distanciasMatriz = matrix;
+      this.setState({ distanciasMatriz: matrix });
+      
+      //creacion de la matriz P
+      this.state.matrizP = new Array(this.state.distanciasMatriz.length).fill([]).map(() => new Array(this.state.distanciasMatriz.length).fill(0));  
+
       //se muestra la matriz D(0)
       console.log("Resultado de la iteración #0");
       //console.log("Matriz: \n", this.state.distanciasMatriz);
@@ -60,9 +79,11 @@ class Matriz extends Component {
     }else{
       if (this.state.iteracion > this.state.numNodos){
         //se llego a la solucion optima
-        window.alert("Ya se ha llegado a la solución óptima");
+        window.alert("Ya se ha llegado a la solución óptima \n Scroll down para solicitar rutas óptimas.");
         console.log("Solución óptima: \n");
         this.showMatriz();
+        this.setState({ mostrarRutaOptima: true });
+        return;
       }else{
         //llamar al algoritmo de floyd
         this.CalculateFloyd();
@@ -150,17 +171,81 @@ class Matriz extends Component {
       } 
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className='floydmainDiv'>
+        <form className='floydform1' onSubmit={this.handleSubmit}>
           <label>Número de nodos:</label>
           <input
               type="number"
               onChange={this.handleNumNodosChange}
             />
           {matrizDistancias}
-          <button type="submit">Calcular</button>
+          <button className='floydcalcularbtn' type="submit">Calcular</button>
         </form>
         
+        <div className='floydtabladdiv'>
+        {this.state.distanciasMatriz.length > 0 && (
+          <div>
+            <h2 className='h2tablaD'>{`Tabla D(${this.state.iteracion-1})`}</h2>
+            <table className='floydtablad'>
+              <thead className='theadtablad'>
+                <tr className='trtablad'>
+                  <th className='thtablad'>Nodo</th>
+                  {Array.from({ length: this.state.distanciasMatriz.length}, (_, i) => (
+                    <th className='thtablad' key={i}>{i}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className='tbodytablad'>
+                {this.state.distanciasMatriz.map((row, rowIndex) => (
+                  <tr className='trtablad' key={rowIndex}>
+                    <td className='tdtablad'>{`Nodo ${rowIndex+1}`}</td>
+                    {row.map((cell, cellIndex) => (
+                      <td className='tdtablad' key={cellIndex} style={{ backgroundColor: cell ? "green" : "red" }}>
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        </div>
+        <div>
+        {this.state.matrizP.length > 0 && (
+          <div className='divtablap'>
+            <h2 className='h2tablap'>{`Tabla P(${this.state.iteracion-1})`}</h2>
+            <table className='tablatablap'>
+              <thead className='theadtablap'>
+                <tr className='trtablap'>
+                  <th className='thtablap'>Nodo</th>
+                  {Array.from({ length: this.state.matrizP.length}, (_, i) => (
+                    <th className='thtablap' key={i}>{i+1}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className='tbodytablap'>
+                {this.state.matrizP.map((row, rowIndex) => (
+                  <tr className='trtablap' key={rowIndex}>
+                    <td className='tdtablap'>{`Nodo ${rowIndex+1}`}</td>
+                    {row.map((cell, cellIndex) => (
+                      <td className='tdtablap' key={cellIndex} style={{ backgroundColor: cell ? "green" : "red" }}>
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        </div>
+        <div>        
+        {this.state.mostrarRutaOptima && (
+          <RutaOptima matrizP={this.state.matrizP} />
+        )}
+      </div>
+
       </div>
       
     );

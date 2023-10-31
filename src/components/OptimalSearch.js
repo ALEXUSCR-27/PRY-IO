@@ -124,25 +124,25 @@ function sum(probabilities, i, j) {
     }
 
     const generateTree = () => {
-        if (probabilities.length>0) {
-            let total = 0;
-            for (let i=0;i<cantKeys;i++) {
-                total+=p[i];
-            }
-
-            const temp = probabilities;
-            for (let j=0;j<cantKeys;j++) {
-                temp[j] = p[j]/total;
-            }
-            setProbabilities(temp);
-            console.log(probabilities);
-
-            const cost = generateOptimalTree();
-            setCost(cost);
-            setOptimalCost(cost[0][cantKeys-1]);
-            setFlag2(true);
-            console.log("Costo óptimo de búsqueda:", cost[0][cantKeys-1]);
+        
+        let total = 0;
+        for (let i=0;i<cantKeys;i++) {
+            total+=p[i];
         }
+
+        const temp = probabilities;
+        for (let j=0;j<cantKeys;j++) {
+            temp[j] = p[j]/total;
+        }
+        setProbabilities(temp);
+        console.log(probabilities);
+
+        const cost = generateOptimalTree();
+        setCost(cost);
+        setOptimalCost(cost[0][cantKeys-1]);
+        setFlag2(true);
+        console.log("Costo óptimo de búsqueda:", cost[0][cantKeys-1]);
+        
 
     }
 

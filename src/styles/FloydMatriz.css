@@ -1,0 +1,185 @@
+.h1Floyd {
+    font-size: 34px;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.h4Floyd {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Estilos para el contenedor principal */
+.floydmainDiv {
+    margin: 20px;
+  }
+  
+  /* Estilos para el formulario */
+  .floydform1 {
+    margin-bottom: 20px;
+  }
+  
+  .floydform1 label {
+    font-weight: bold;
+  }
+  
+  .floydform1 input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para el botón "Calcular" */
+  .floydcalcularbtn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  /* Estilos para la tabla D */
+  .floydtabladdiv {
+    margin-top: 20px;
+  }
+  
+  .h2tablaD {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .floydtablad {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .theadtablad th, .tbodytablad td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .theadtablad th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* Estilos para las celdas con fondo verde o rojo en la tabla D */
+  .tdtablad.green {
+    background-color: green;
+    color: white;
+  }
+  
+  .tdtablad.red {
+    background-color: red;
+    color: white;
+  }
+  
+  /* Estilos para la tabla P */
+  .divtablap {
+    margin-top: 20px;
+  }
+  
+  .h2tablap {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .tablatablap {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .theadtablap th, .tbodytablap td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .theadtablap th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* Estilos para las celdas con fondo verde o rojo en la tabla P */
+  .tdtablap.green {
+    background-color: green;
+    color: white;
+  }
+  
+  .tdtablap.red {
+    background-color: red;
+    color: white;
+  }
+  
+
+/* Estilos para la sección de ruta óptima */
+
+/* Estilos para el contenedor principal de RutaOptima */
+.divRutaOptima {
+    margin: 20px;
+  }
+  
+  /* Estilos para el contenedor principal de RutaOptima */
+  .mainRutaOptima {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Estilos para el contenedor interno de RutaOptima */
+  .divcontenedorrutaoptima {
+    margin: 20px;
+  }
+  
+  /* Estilos para el título "Solicitar Ruta Óptima" */
+  .h2rutaoptima {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el formulario de RutaOptima */
+  .formrutaoptima {
+    margin-top: 10px;
+  }
+  
+  /* Estilos para las etiquetas en el formulario de RutaOptima */
+  .labelrutaoptima {
+    font-weight: bold;
+  }
+  
+  /* Estilos para los campos de entrada en el formulario de RutaOptima */
+  .inputrutaoptima {
+    width: 100px;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  /* Estilos para el botón "Encontrar Ruta Óptima" en el formulario de RutaOptima */
+  .btnrutaoptima {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Estilos para el título "Ruta Óptima" */
+  .h3rutaoptima {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el párrafo de la Ruta Óptima */
+  .prutaoptima {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+

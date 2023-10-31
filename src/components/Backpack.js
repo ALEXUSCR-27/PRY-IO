@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../styles/Backpack.css'
 import NavBar from "./NavBar";
 
 function defineCopies(pproblemType) {
@@ -15,6 +16,7 @@ function Backpack() {
     const [problemType, setProblemType] = useState("0-1");  
     const [items, setItems] = useState([{name: "", value: 0, weight: 0, copies: defineCopies(problemType) }]);
     const [table, setTable] = useState([]);
+    const [solucionFinal,setSolucion] = useState("");
   const addItem = () => {
     setItems([...items, { value: 0, weight: 0, copies: 0 }]);
   };
@@ -111,9 +113,17 @@ function Backpack() {
           }
         }
         console.log("Solución final: ", includedItems);
+        let solucionFinal = "";
         includedItems.forEach((item) => {
           console.log(`Se agregó el Objeto "${item.name}" con el Valor = ${item.value}, y con Peso = ${item.weight}`);
+
+          solucionFinal = solucionFinal + `Se agregó el Objeto "${item.name}" con el Valor = ${item.value}, y con Peso = ${item.weight} \n`;
+          
         });
+
+        console.log("Valor máximo obtenido:", dp[n][capacity]);
+        solucionFinal = solucionFinal + `Valor máximo obtenido: ${dp[n][capacity]}`;
+        setSolucion(solucionFinal);
         
 
     } else if (problemType === "bounded") {
@@ -144,7 +154,29 @@ function Backpack() {
 
         setTable(dp);
 
+        //Calcular la solución final y mostrar los objetos incluidos
+        const includedItems = [];
+        let w = capacity;
+
+        for (let i = n; i > 0 && w > 0; i--) {
+          if (dp[i][w] !== dp[i - 1][w]) {
+            includedItems.push(items[i - 1]);
+            //console.log("Objeto incluido:",items[i-1].name," con los valores",items[i-1]);
+            w -= items[i - 1].weight;
+          }
+        }
+        console.log("Solución final: ", includedItems);
+        let solucionFinal = "";
+        includedItems.forEach((item) => {
+          console.log(`Se agregó el Objeto "${item.name}" con el Valor = ${item.value}, y con Peso = ${item.weight}`);
+
+          solucionFinal = solucionFinal + `Se agregó el Objeto "${item.name}" con el Valor = ${item.value}, y con Peso = ${item.weight} \n`;
+          
+        });
+
         console.log("Valor máximo obtenido:", dp[n][capacity]);
+        solucionFinal = solucionFinal + `Valor máximo obtenido: ${dp[n][capacity]}`;
+        setSolucion(solucionFinal);
 
     } else if (problemType === "unbounded") {   
         // algoritmo de la mochila unbounded
@@ -175,28 +207,33 @@ function Backpack() {
 
         setTable(dp);
 
+        //Calcular la solución final y mostrar los objetos incluidos
+        const includedItems = [];
+        let w = capacity;
+
+        for (let i = n; i > 0 && w > 0; i--) {
+          if (dp[i][w] !== dp[i - 1][w]) {
+            includedItems.push(items[i - 1]);
+            //console.log("Objeto incluido:",items[i-1].name," con los valores",items[i-1]);
+            w -= items[i - 1].weight;
+          }
+        }
+        console.log("Solución final: ", includedItems);
+        let solucionFinal = "";
+        includedItems.forEach((item) => {
+          console.log(`Se agregó el Objeto "${item.name}" con el Valor = ${item.value}, y con Peso = ${item.weight}`);
+
+          solucionFinal = solucionFinal + `Se agregó el Objeto "${item.name}" con el Valor = ${item.value}, y con Peso = ${item.weight} \n`;
+          
+        });
+
         console.log("Valor máximo obtenido:", dp[n][capacity]);
-
-        /*
-        // Obtener los objetos seleccionados en la solución final.
-        let objectsSelected = [];
-        for (let i = 1; i <= n; i++) {
-            if (selectedItems[i] > 0) {
-                objectsSelected.push(`Objeto ${i}: ${selectedItems[i]} copia(s)`);
-            }
-        }
-
-        // Mostrar los objetos seleccionados.
-        console.log("Objetos seleccionados:");
-        for (let obj of objectsSelected) {
-            console.log(obj);
-        }
-        */
+        solucionFinal = solucionFinal + `Valor máximo obtenido: ${dp[n][capacity]}`;
+        setSolucion(solucionFinal);
   
     } else {
         console.log("Error, no se ha seleccionado un tipo de problema");
     }
-
   };
 
 
@@ -222,43 +259,47 @@ function Backpack() {
         <NavBar />
       </header>
       <main>
-        <h1>El Problema de la Mochila</h1>
+        <h1 className="h1mochila">El Problema de la Mochila</h1>
         <div>
-          <label>Capacidad Máxima de la Mochila:</label>
+          <label className="labelmochila">Capacidad Máxima de la Mochila:</label>
           <input
+            className="inputmochila"
             type="number"
             value={capacity}
             onChange={handleCapacityChange}
           />
-        <button onClick={addItem}>Agregar Objeto</button>
+        <button className="buttonmochila" onClick={addItem}>Agregar Objeto</button>
         </div>
         {items.map((item, index) => (
           <div key={index}>
-            <h5>Objeto {index + 1}, ingrese valor y peso (si el tipo de problema es bounded, se indica la cantidad):</h5>
+            <h4 className="h4mochila">Objeto {index + 1}, ingrese valor y peso (si el tipo de problema es bounded, se indica la cantidad):</h4>
             <input
+              className="inputmochila"
               type="number"
               placeholder="Valor"
               value={item.value}
               onChange={(e) => handleItemValueChange(index, e)}
             />
             <input
+              className="inputmochila"
               type="number"
               placeholder="Peso"
               value={item.weight}
               onChange={(e) => handleItemWeightChange(index, e)}
             />
             <input
+              className="inputmochila"
               type="number"
               placeholder="Cantidad"
               value={item.copies}
               onChange={(e) => handleItemCopiesChange(index, e)}
             />
-            <button onClick={() => removeItem(index)}>Eliminar Objeto</button>
+            <button className="buttonmochila" onClick={() => removeItem(index)}>Eliminar Objeto</button>
           </div>
         ))}
         <div>
-          <label>Tipo de Problema:</label>
-          <select
+          <label className="labelmochila">Tipo de Problema:</label>
+          <select className="selectmochila"
             value={problemType}
             onChange={(e) => handleProblemTypeChange(e)}
           >
@@ -268,26 +309,26 @@ function Backpack() {
           </select>
         </div>
         <div>
-          <button onClick={solveKnapsack}>Resolver</button>
+          <button className="buttonmochila" onClick={solveKnapsack}>Resolver</button>
         </div>
         {table.length > 0 && (
           <div>
             <h2>Tabla de Programación Dinámica</h2>
-            <table>
+            <table className="tablemochila">
               <thead>
                 <tr>
-                  <th>Objeto</th>
+                  <th className="thmochila">Objeto</th>
                   {Array.from({ length: capacity + 1 }, (_, i) => (
-                    <th key={i}>{i}</th>
+                    <th className="thmochila" key={i}>{i}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {table.map((row, rowIndex) => (
                   <tr key={rowIndex}>
-                    <td>{`Objeto ${rowIndex}`}</td>
+                    <td className="tdmochila">{`Objeto ${rowIndex}`}</td>
                     {row.map((cell, cellIndex) => (
-                      <td key={cellIndex} style={{ backgroundColor: cell ? "green" : "red" }}>
+                      <td className="tdmochila"key={cellIndex} style={{ backgroundColor: cell ? "green" : "red" }}>
                         {cell}
                       </td>
                     ))}
@@ -296,7 +337,15 @@ function Backpack() {
               </tbody>
             </table>
           </div>
-        )};
+        )}
+        <div>      
+          {solucionFinal && (
+            <div>
+              <h2 className="h2solucionfinal">Solución Final</h2>
+              <p className="psolucionfinal">{solucionFinal}</p>
+            </div>
+          )}
+        </div>
       </main>
     </div>
   );
