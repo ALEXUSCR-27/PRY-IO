@@ -1,27 +1,118 @@
-import React, { Component } from "react";
+import React, { useState} from "react";
 import NavBar from "./NavBar";
+import OptimalTable from "./OptimalTable";
 
-function maximizeProfit(prices, lifeSpan) {
-  const n = prices.length;
-  const dp = new Array(n + 1);
+function Replacement() {
 
-  for (let i = 0; i <= n; i++) {
-    dp[i] = new Array(lifeSpan + 1).fill(0);
-  }
+    const [tableT, setTableT] = useState([]);
+    const [tableG, setTableG] = useState([]);
+    const [tableP, setTableP] = useState([]);
+    const [flag, setFlag] = useState(false);
+    const [tables, setTables] = useState([]);
 
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= lifeSpan; j++) {
-      let maxProfit = dp[i - 1][j];
-      for (let k = 1; k < i; k++) {
-        maxProfit = Math.max(maxProfit, prices[i - 1] + dp[k - 1][j - 1]);
+      const optimalReplacement = () => {
+        const prices = [400, 300, 250];
+        const maintenance = [30, 40, 60];
+        const initPrice = 500;
+        const life = 3;
+        const totalTime = 5;
+        let t = new Array(totalTime + 1).fill(0);
+        let g = new Array(totalTime + 1).fill(0);
+        let p = new Array(totalTime + 1).fill(0);
+        let pricesbyyear = getPricesbyYears(prices, maintenance, initPrice, life);
+        let cont = 0;
+        for (let i = totalTime; i>=0;i--) {
+            if (i === totalTime) {
+                g[cont] = 0;
+                t[cont] = i;
+                p[cont] = 0;
+                cont++;
+            }
+            else {
+                let min = Number. MAX_SAFE_INTEGER;
+                let actual = 0;
+                let cicle = totalTime - i;
+                if (cicle>life) {
+                    cicle = 3;
+                }
+                for (let j = 0;j<cicle;j++) {
+                    let tempG = i+j+1;
+                    let posP = (tempG - i)-1;
+                    let posG = totalTime - tempG;
+                    actual = pricesbyyear[posP]+g[posG];
+                    if (actual<min) {
+                        min = actual;
+                        t[cont] = i;
+                        g[cont] = actual;
+                        p[cont] = tempG;
+                    }
+                    else {
+                        if (actual == min) {
+                            if (Array.isArray(p[cont])) {
+                                p[cont].push(tempG);
+                            }
+                            else {
+                                const temp = p[cont];
+                                p[cont] = [temp,tempG]
+                            }
+                        }
+                    }
+                    
+                }
+                //console.log(g);
+                cont++;
+            }
+        }
+        setTableT(t);
+        setTableP(p);
+        setTableG(g);
+        setTables([t, g, p])
+        setFlag(true);
+        console.log(p);
+        console.log("g:"+g);
+        console.log("t:"+t);
       }
-      dp[i][j] = maxProfit;
-    }
-  }
 
-  return dp[n][lifeSpan];
+      const getPricesbyYears = (prices, maintenance, initPrice, life) => {
+        let res = [];
+        for (let i=0;i<=life;i++) {
+            let cont = i;
+            let actual = maintenance[0];
+            for (let j=1;j<=cont;j++ ) {
+                actual+=maintenance[j];
+            }
+            res.push(initPrice+actual-prices[i]);
+        }
+        return res;
+      }
+      
+      // Ejemplo de uso
+      const ejemplo = () => {
+        const precioVenta = [400, 300, 250];
+        const costoMantenimiento = [30, 40, 60];
+        const vidaUtil = 3;
+        const anosTrabajo = 5;
+        const initPrice = 500;
+        console.log("si");
+      const resultado = optimalReplacement();
+      }
+      
+      
+
+      return (
+        <div>
+            <h1>hoola</h1>
+            <button onClick={() => ejemplo()}>si</button>
+            { flag && <OptimalTable arrays={tables}/>}
+        </div>
+      );
+
 }
 
+
+
+
+/*
 class Replacement extends Component {
   constructor() {
     super();
@@ -177,10 +268,10 @@ class Replacement extends Component {
           />
           <button onClick={this.calculateAnalysisTable}>Calculate</button>
         </form>
-        {/* Display the analysis table here */}
+        {/* Display the analysis table here /}
       </div>
     );
   }
 }
-
+*/
 export default Replacement;

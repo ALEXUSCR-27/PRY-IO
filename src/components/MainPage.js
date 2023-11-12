@@ -21,7 +21,7 @@ function MainPage() {
                         <h2 style={{top:"50px", left:"100px"}} className="h2-main" >Algoritmo Floyd Warshall</h2>
                         <Link to = "http://localhost:3000/FloydAlgorithm">
                                 <button className="floyd-card" >
-                                    <h3 className="card-overlay">El algoritmo de Floyd es un algoritmo utilizado para encontrar las rutas más cortas entre todos los pares de nodos en un grafo dirigido y con ponderaciones o pesos en las aristas. Desarrollado por el premio Turing, Robert W. Floyd, utiliza la programación dinámica para obtener las distancias óptimas, permitiendo pasar por cualquier nodo. Puede volverse lento en grafos grandes. Sin embargo, es una herramienta poderosa para encontrar todas las rutas más cortas en un grafo ponderado.</h3>
+                                    <p className="card-overlay">El algoritmo de Floyd es un algoritmo utilizado para encontrar las rutas más cortas entre todos los pares de nodos en un grafo dirigido y con ponderaciones o pesos en las aristas. Desarrollado por el premio Turing, Robert W. Floyd, utiliza la programación dinámica para obtener las distancias óptimas, permitiendo pasar por cualquier nodo. Puede volverse lento en grafos grandes. Sin embargo, es una herramienta poderosa para encontrar todas las rutas más cortas en un grafo ponderado.</p>
                                 </button>
                         </Link>
                         
@@ -30,9 +30,9 @@ function MainPage() {
                         <h2 style={{top:"50px", left:"100px"}} className="h2-main" >Algoritmo de Mochila</h2>
                         <Link to = "http://localhost:3000/BKAlgorithm">
                                 <button className="bk-card">
-                                    <h3 className="card-overlay">El algoritmo de la mochila o "knapsack problem", es un problema de optimización de espacio que implica seleccionar un conjunto de objetos que tienen un valor y un peso, de manera que se determine la combinación óptima de objetos que quepa en la mochila y se maximice el valor total. Se aplica el principio de optimalidad si la capacidad de la mochila es menor. Existen dos tipos: 	
+                                    <p className="card-overlay">El algoritmo de la mochila o "knapsack problem", es un problema de optimización de espacio que implica seleccionar un conjunto de objetos que tienen un valor y un peso, de manera que se determine la combinación óptima de objetos que quepa en la mochila y se maximice el valor total. Se aplica el principio de optimalidad si la capacidad de la mochila es menor. Existen dos tipos: 	
                                     • Bounded Knapsack (mochila limitada): k_i copias del objeto i.
-                                    • Unbounded Knapsack (mochila ilimitada): hay un numero infinito de copias de cada objeto</h3>
+                                    • Unbounded Knapsack (mochila ilimitada): hay un numero infinito de copias de cada objeto</p>
                                 </button>
                         </Link>
                     </div>
@@ -40,7 +40,7 @@ function MainPage() {
                         <h2 style={{top:"50px", left:"100px"}} className="h2-main" >Algoritmo Reemplazo de Equipos</h2>
                         <Link to = "http://localhost:3000/ReplacementAlgorithm">
                                 <button className="rm-card">
-                                    <h3 className="card-overlay">El algoritmo de reemplazo de equipos es un proceso para tomar decisiones sobre cuándo retirar o reemplazar activos, en función del costo del activo (Costo = Compra + Mantenimiento - Venta) de acuerdo al tiempo de antigüedad del mismo. Así, este algoritmo funciona para obtener el plan óptimo de reemplazo del equipo. Por ejemplo, las empresas tienen que tener protocolos de reemplazo de equipos, como de computadoras, ya que estas pierden su vida útil a lo largo de los años.</h3>
+                                    <p className="card-overlay">El algoritmo de reemplazo de equipos es un proceso para tomar decisiones sobre cuándo retirar o reemplazar activos, en función del costo del activo (Costo = Compra + Mantenimiento - Venta) de acuerdo al tiempo de antigüedad del mismo. Así, este algoritmo funciona para obtener el plan óptimo de reemplazo del equipo. Por ejemplo, las empresas tienen que tener protocolos de reemplazo de equipos, como de computadoras, ya que estas pierden su vida útil a lo largo de los años.</p>
                                 </button>
                         </Link>
                     </div>
