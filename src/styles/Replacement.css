@@ -1,0 +1,16 @@
+.right-bar-replacement {
+    margin-top: 20px;
+    width: 20%;
+    height: 890px;
+    background-color: #F5F6F8;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-side-replacement {
+    width: 80%;
+    background-color: white;
+}
+.calcular-replacement {
+    margin-top: 30px;
+}
