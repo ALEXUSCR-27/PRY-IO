@@ -178,39 +178,40 @@ function SportSeries() {
             <main>
                 <div style={{display:"flex"}}>
                     <div className="right-bar-sports">
-                        <label>Numero de juegos:</label>
+                        <h2>Algoritmo de series deportivas</h2>
+                        <label className="labels">Numero de juegos:</label>
                         <input type="number" placeholder="MAX:11" onChange={(e) => handleNumJuegos(e)}></input>
 
-                        <label>Probabilidad de gane para A en casa:</label>
+                        <label className="labels">Probabilidad de gane para A en casa:</label>
                         <input type="number" onChange={(e) => handleProbA(e)}></input>
 
-                        <label>Probabilidad de gane para A de visita:</label>
+                        <label className="labels">Probabilidad de gane para A de visita:</label>
                         <input type="number" onChange={(e) => handleProbB(e)}></input>
                         
-                        <label>Formato</label>
+                        <label className="labels">Formato</label>
                         <select onChange={(e) => handleFormato(e)}>
                             <option value={"2"}>2 vuelta</option>
                             <option value={"3"}>3 vueltas</option>
                         </select>
                             <div style={{display: "flex",flexDirection: "column"}}>
-                                <label>Primer vuelta</label>
+                                <label className="labels">Primer vuelta</label>
                                 <input type="number" onChange={(e) => handleF1(e)}></input>
-                                <label>Segunda vuelta</label>
+                                <label className="labels">Segunda vuelta</label>
                                 <input type="number" onChange={(e) => handleF2(e)}></input>
                                 {flag3 && (
                                     <div style={{display: "flex",flexDirection: "column"}}>
-                                        <label>Tercer vuelta</label>
+                                        <label className="labels">Tercer vuelta</label>
                                         <input type="number" onChange={(e) => handleF3(e)}></input>
                                     </div>
                                 )}
                             </div>
-                        <button className="calcular-button" onClick={calcularProbabilidadesSerie}>CALCULAR</button>
+                        <button className="calcular-button-sports" onClick={calcularProbabilidadesSerie}>CALCULAR</button>
 
                     </div>
                     <div className="left-side-sports">
                         {flag && (
                             <div>
-                                <h1>Tabla de probabilidades para un campeonato ({cantPartidosCamp},{cantPartidosCamp})</h1>
+                                <h2>Tabla de probabilidades para un campeonato ({cantPartidosCamp},{cantPartidosCamp})</h2>
                             </div>
                         )}  
                         <table>
@@ -227,8 +228,8 @@ function SportSeries() {
                         <div>
                             {flag && (
                                 <div>
-                                    <h1>La probabilidad de que el equipo A quede campeon es del {campA}%</h1>
-                                    <h1>La probabilidad para el equipo de B de quedar campeon es del {campB}%</h1>
+                                    <h2>La probabilidad de que el equipo A quede campeon es del {campA}%</h2>
+                                    <h2>La probabilidad para el equipo de B de quedar campeon es del {campB}%</h2>
                                 </div>
                             )}
                         </div>

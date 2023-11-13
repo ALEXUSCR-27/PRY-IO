@@ -124,24 +124,25 @@ function sum(probabilities, i, j) {
     }
 
     const generateTree = () => {
-        
-        let total = 0;
-        for (let i=0;i<cantKeys;i++) {
-            total+=p[i];
-        }
+        if (validate()) {
+            let total = 0;
+            for (let i=0;i<cantKeys;i++) {
+                total+=p[i];
+            }
 
-        const temp = probabilities;
-        for (let j=0;j<cantKeys;j++) {
-            temp[j] = p[j]/total;
-        }
-        setProbabilities(temp);
-        console.log(probabilities);
+            const temp = probabilities;
+            for (let j=0;j<cantKeys;j++) {
+                temp[j] = p[j]/total;
+            }
+            setProbabilities(temp);
+            console.log(probabilities);
 
-        const cost = generateOptimalTree();
-        setCost(cost);
-        setOptimalCost(cost[0][cantKeys-1]);
-        setFlag2(true);
-        console.log("Costo óptimo de búsqueda:", cost[0][cantKeys-1]);
+            const cost = generateOptimalTree();
+            setCost(cost);
+            setOptimalCost(cost[0][cantKeys-1]);
+            setFlag2(true);
+            console.log("Costo óptimo de búsqueda:", cost[0][cantKeys-1]);
+        }
         
 
     }
@@ -209,6 +210,13 @@ function sum(probabilities, i, j) {
         console.log(keys);
     }
 
+    const validate = () => {
+        if (keys.length<=0 || probabilities.length<=0) {
+            return false;
+        }
+        return true;
+    }
+
     const ordenar = () => {
 
         let listaCombinada = keys.map((string, index) => ({ string, costo: p[index] }));
@@ -231,14 +239,12 @@ function sum(probabilities, i, j) {
             <main>
                 <div style={{display:"flex"}}>
                     <div className="right-bar-tree">
+                        <h2>Algoritmo de busqueda optima</h2>
                         <div className="keys-section">
                             <label className="keys-title">Cantidad de llaves:</label>
                             <input type= "number" className="keys-cantInput" placeholder="Ej:10" onChange={(e) => setCantRows(e)}></input>
                             <button className="generateRows-button" onClick={generateRows}>CONF. LLAVES</button>
                             <button className="generateRows-button" onClick={generateTree}>GENERAR ARBOL</button>
-                            <div style={{marginTop:"10px"}}>
-                                <button className="save-program-button" onClick={generateArchive}>GUARDAR PROGRAMA</button>
-                            </div>
                             
                         </div>
                         <div className="div-table">
@@ -260,7 +266,7 @@ function sum(probabilities, i, j) {
                                                         <input onChange={(e) => manageKey(val-1, e)}></input>
                                                     </td>
                                                     <td>
-                                                        <input onChange={(e) => manageValue(val-1, e)}></input>
+                                                        <input type="number" onChange={(e) => manageValue(val-1, e)}></input>
                                                     </td>
 
                                                 </tr>

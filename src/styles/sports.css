@@ -5,12 +5,29 @@
     background-color: #F5F6F8;
     display: flex;
     flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .left-side-sports {
     width: 80%;
     background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-.calcular-button {
-    margin-top: 30px;
+.calcular-button-sports {
+    margin-top: 10px;
+    background-color: #436063;
+    border:0;
+    height: 30px;
+    color: white;
+    border-radius: 4px;
+    font-family:'Open Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.labels {
+    font-family: 'Open sans', sans-serif;
+    font-weight: bold;
 }

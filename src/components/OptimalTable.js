@@ -8,9 +8,9 @@ function OptimalTable({arrays}) {
             <table style={{ borderCollapse: 'collapse', width: '100%' }}>
       <thead>
         <tr>
-          <th>t</th>
-          <th>g</th>
-          <th>p</th>
+          <th>Tiempos(t)</th>
+          <th>G(t)</th>
+          <th>Proximo</th>
         </tr>
       </thead>
       <tbody>

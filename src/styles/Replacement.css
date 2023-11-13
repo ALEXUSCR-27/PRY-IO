@@ -1,16 +1,40 @@
 .right-bar-replacement {
     margin-top: 20px;
-    width: 20%;
+    width: 33%;
     height: 890px;
     background-color: #F5F6F8;
     display: flex;
     flex-direction: column;
+    padding-left: 10px;
+    padding-right: 20px;
+    
 }
 
 .left-side-replacement {
-    width: 80%;
+    width: 67%;
     background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .calcular-replacement {
     margin-top: 30px;
+}
+
+.calcular-button-replacement {
+    margin-top: 5px;
+    background-color: #436063;
+    border:0;
+    height: 30px;
+    color: white;
+
+    border-radius: 3px;
+    font-family:'Open Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.labels {
+    font-family: 'Open sans', sans-serif;
+    font-weight: bold;
 }

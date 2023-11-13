@@ -23,26 +23,18 @@ function MatrixMul() {
     }
 
     const MatrixChainOrder = (p , n) => {
-
         let m = Array(n).fill(0).map(x => Array(n).fill(0));
-     
         let i, j, k, L, q;
-     
         for (i = 1; i < n; i++)
             m[i][i] = 0;
-     
-        // L is chain length.
-        for (L = 2; L < n; L++) 
-        {
-            for (i = 1; i < n - L + 1; i++) 
-            {
+
+        for (L = 2; L < n; L++) {
+            for (i = 1; i < n - L + 1; i++) {
                 j = i + L - 1;
                 if (j == n)
                     continue;
                 m[i][j] = Number.MAX_VALUE;
-                for (k = i; k <= j - 1; k++) 
-                {
-                    // q = cost/scalar multiplications
+                for (k = i; k <= j - 1; k++) {
                     q = m[i][k] + m[k + 1][j]
                         + p[i - 1] * p[k] * p[j];
                     if (q < m[i][j])
@@ -59,14 +51,15 @@ function MatrixMul() {
     }
 
     const calcular = () => {
-        if (dimensionsList.length>0) {
+        if (dimensionsList.length>1) {
             let arr = dimensionsList;
             console.log(dimensionsList);
             let size = arr.length;
             console.log(MatrixChainOrder(arr, size));
         }
-        
-    
+        else {
+            alert("Aviso, debe haber al menos 2 matrices para realizar la multiplicacion!!");
+        }
     }
 
     const handleDimensions  = (e) => {
@@ -90,7 +83,8 @@ function MatrixMul() {
             <main>
                 <div style={{display:"flex"}}>
                     <div className="right-bar-matrix">
-                        <label>Numero de matrices</label>
+                        <h2>Algoritmo de multiplicacion de matrices optima</h2>
+                        <label className="labels">Numero de matrices</label>
                         <input type="number" onChange={(e) => handleDimensions(e)}></input>
                         <button className="calcular-button" onClick={generateRows}>CONF. DIMENSIONES</button>
                         <table>
