@@ -11,6 +11,8 @@ function MatrixMul() {
     const [m, setM] = useState([]);
     const [flag, setFlag] = useState(false);
     const [cantMul, setCantMul] = useState(0);
+    const [mulOrder, setMulOrder] = useState("");
+    const [pTable, setPTable] = useState([]);
 
     const generateRows = () => {
         const tempRows = [];
@@ -21,7 +23,7 @@ function MatrixMul() {
         setRows(tempRows);
         
     }
-
+    /*
     const MatrixChainOrder = (p , n) => {
         let m = Array(n).fill(0).map(x => Array(n).fill(0));
         let i, j, k, L, q;
@@ -48,6 +50,55 @@ function MatrixMul() {
         setFlag(true);
         
         return m[1][n - 1];
+    }
+    */
+
+    const MatrixChainOrder = (p, n) => {
+        let m = Array(n).fill(0).map(x => Array(n).fill(0));
+        let s = Array(n).fill(0).map(x => Array(n).fill(0));
+    
+        for (let i = 1; i < n; i++)
+            m[i][i] = 0;
+    
+        for (let L = 2; L < n; L++) {
+            for (let i = 1; i < n - L + 1; i++) {
+                let j = i + L - 1;
+                if (j == n)
+                    continue;
+                m[i][j] = Number.MAX_VALUE;
+                for (let k = i; k <= j - 1; k++) {
+                    let q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];
+                    if (q < m[i][j]) {
+                        m[i][j] = q;
+                        s[i][j] = k;
+                    }
+                }
+            }
+        }
+    
+        const order = buildOptimalOrder(s, 1, n - 1);
+        setM(m);
+        setCantMul(m[1][n - 1]);
+        setMulOrder(order);
+        setPTable(s);
+        setFlag(true);
+        
+
+        return {
+            cost: m[1][n - 1],
+            order: order
+        };
+    }
+    
+    const buildOptimalOrder = (s, i, j) => {
+        if (i === j) {
+            return `A${i}`;
+        } else {
+            const k = s[i][j];
+            const left = buildOptimalOrder(s, i, k);
+            const right = buildOptimalOrder(s, k + 1, j);
+            return `(${left} x ${right})`;
+        }
     }
 
     const calcular = () => {
@@ -130,11 +181,28 @@ function MatrixMul() {
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
+                                {flag && (
+                                    <div>
+                                        <h1>Tabla P</h1>
+                                    </div>
+                                )}  
+                                <table>
+                                    <tbody>
+                                        {pTable.map((fila, filaIndex) => (
+                                        <tr key={filaIndex}>
+                                            {fila.map((valor, colIndex) => (
+                                            <td key={colIndex}>{valor}</td>
+                                            ))}
+                                        </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                        </div>
 
                             {flag && (
                                 <div>
-                                    <h1>Cantidad de multiplicaciones optima: {cantMul}</h1>
+                                    <h2>Cantidad de multiplicaciones optima: {cantMul}</h2>
+                                    <h2>Orden de multiplicaciones: {mulOrder}</h2>
                                 </div>
                             )}
                         </div>
